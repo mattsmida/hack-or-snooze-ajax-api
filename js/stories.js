@@ -57,9 +57,30 @@ function putStoriesOnPage() {
 */
 
 function addFavoriteStars() {
-  $allStoriesList.children().prepend('<i class="bi bi-star"></i>');
+  const favoriteIds = [];
+  const favoriteStories = currentUser.favorites;
+  console.log("addFavoriteStars", favoriteIds, currentUser, favoriteStories, favoriteStories[0], favoriteStories[0].storyID)
+  //Loop through favorite stories on current user
+  for (let favoriteStory of favoriteStories) {
+    //Populate array "favoriateIDs" with all IDs
+    favoriteIds.push(favoriteStory.storyId);
+  }
+  const stories = storyList.stories;
+  //Loop through the storyList looking at each ID
+  for (let story of stories) {
+    if(favoriteIds.includes(story.storyID)) {
+      $(`#${story.storyID}`).prepend('<i class="bi bi-star-fill"></i>');
+    } else {
+      $(`#${story.storyID}`).prepend('<i class="bi bi-star"></i>');
+    }
+  }
+  console.log("addFavoriteStars", favoriteIds, stories)
+  //See if ID is included in "favoriteIDs"
+  //If not, populate with hollow star
+  //Else populate with filled star
+  // $allStoriesList.children().eq(_).prepend('<i class="bi bi-star"></i>');
   // TODO: implement the star-fill version for favorites.
-  $allStoriesList.children().prepend('<i class="bi bi-star-fill"></i>');
+  // $allStoriesList.children().prepend('<i class="bi bi-star-fill"></i>');
 }
 
 /** This function gets the details of a single new story submitted by the
