@@ -50,3 +50,24 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+
+
+/** This function gets the details of a single new story submitted by the
+ *  user in the story-submission form, processes the story by sending a POST
+ *  request, and then adds the story to the DOM at the top of the story list.
+ */
+async function putUserSubmittedStoryOnPage() {
+  const author = $('#story-author-name').val();
+  const title = $('#story-title').val();
+  const url = $('#story-url-name').val();
+
+  const newStoryData = { author, title, url };
+
+  console.log(newStoryData);
+
+  console.log(await storyList.addStory(currentUser, newStoryData));
+
+
+}
+
+$storySubmitForm.on('submit', putUserSubmittedStoryOnPage);
