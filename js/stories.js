@@ -58,8 +58,7 @@ function putStoriesOnPage() {
  */
 // TODO: DS should say that you clear the input fields.
 // TODO: indicate that a request is happening in the name!
-// TODO: MAKE SURE the source of truth is updated when you add a single story.
-// (in general, make sure the source of truth is up to date.)
+
 async function putUserSubmittedStoryOnPage() {
   const author = $('#story-author-name').val();
   const title = $('#story-title').val();
@@ -69,6 +68,7 @@ async function putUserSubmittedStoryOnPage() {
   const newStoryInstance = await storyList.addStory(currentUser, newStoryData);
   const $newStoryPost = generateStoryMarkup(newStoryInstance);
 
+  storyList.stories.unshift(newStoryInstance);
   $allStoriesList.prepend($newStoryPost);
   // Clears story submission form values.
   $('#story-author-name').val("");

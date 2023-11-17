@@ -71,13 +71,14 @@ class StoryList {
    * - user - the current instance of User who will post the story
    * - obj of {title, author, url}
    *
-   * Returns the new Story instance    // TODO: Maybe look at docstring v input
+   * Returns the new Story instance
    */
 
   async addStory(currentUser, newStoryData) {
+    // TODO: good practice to destructure before POST, specifically destructure newStoryData
     const postRequestBody = {
       "token": currentUser.loginToken,
-      "story": newStoryData    // TODO: good practice to destructure before POST
+      "story": newStoryData
     };
     const response = await fetch(`${BASE_URL}/stories`,
       {
@@ -85,8 +86,7 @@ class StoryList {
         body: JSON.stringify(postRequestBody)
       }
     );
-    // TODO: Handle the prepending on user submission around here.
-    // (and remove the other version of that prepend todo.)
+
     const newStoryInstance = await response.json();
     return new Story(newStoryInstance.story);
   }
@@ -213,5 +213,33 @@ class User {
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
+  }
+
+  /** favoriteStory is a method function on the User class
+   * Input: Instance of a Story class
+   * Actions:
+   * Outputs:
+  */
+
+  favoriteStory(story) {
+    // Decalre const response set to invocation of fetch
+    // fetch is targeting Add a New Facorite reference in API
+    // Must pass in URL with correct resource path
+    // Must specify Method as POST
+    // Must provide JSON string in body made of token key/value pair
+    // Response is a JSON string that contains confirmation message and updated
+    // currentUser object
+    // Must update currentUser as the new local truth
+  }
+
+
+  /** unFavoriteStory is a method function on the User class
+   * Input: Instance of a Story class
+   * Actions:
+   * Outputs:
+   */
+
+  unFavoriteStory(story) {
+
   }
 }
