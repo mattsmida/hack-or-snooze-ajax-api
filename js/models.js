@@ -215,18 +215,17 @@ class User {
     }
   }
 
-  /** favoriteStory is a method function on the User class
-   * Input: Instance of a Story class
-   * Actions:
-   * Outputs:
+  /** addFavoriteStory is a method function on the User class
+   * Input: A previously unfavorited instance of a Story class "story"
+   * Actions: This posts the new favorite "story" to the API and updates the
+   * current user favorite story list.
+   * Outputs: None
   */
 
-  async favoriteStory(story) {
-    // Declare const response set to invocation of fetch
+  async addFavoriteStory(story) {
     const postRequestBody = {
       "token": currentUser.loginToken,
     };
-    debugger;
     const response = await fetch(`${BASE_URL}/users/` +
         `${currentUser.username}/favorites/${story.storyId}`,
         {
@@ -234,22 +233,11 @@ class User {
           body: JSON.stringify(postRequestBody)
         }
     );
-    debugger;
 
-    // fetch is targeting Add a New Facorite reference in API
-    // Must pass in URL with correct resource path
-    // Must specify Method as POST
-    // Must provide JSON string in body made of token key/value pair
-    // Response is a JSON string that contains confirmation message and updated
-    // currentUser object
-    // Must update currentUser as the new local truth
+    const responseObj = await response.json();
+    const updatedFavorites = await responseObj.user.favorites
 
-    const testVar = await response.json();
-    console.log(testVar.user);
-
-    // FIXME:  currentUser is not defined after this runs.
-    currentUser = new User(testVar.user, currentUser.token);
-    // currentUser = await response.json().user;
+    currentUser.favorites = updatedFavorites;
   }
 
 
