@@ -221,8 +221,21 @@ class User {
    * Outputs:
   */
 
-  favoriteStory(story) {
-    // Decalre const response set to invocation of fetch
+  async favoriteStory(story) {
+    // Declare const response set to invocation of fetch
+    const postRequestBody = {
+      "token": currentUser.loginToken,
+    };
+    debugger;
+    const response = await fetch(`${BASE_URL}/users/` +
+        `${currentUser.username}/favorites/${story.storyId}`,
+        {
+          method: "POST",
+          body: JSON.stringify(postRequestBody)
+        }
+    );
+    debugger;
+
     // fetch is targeting Add a New Facorite reference in API
     // Must pass in URL with correct resource path
     // Must specify Method as POST
@@ -230,6 +243,13 @@ class User {
     // Response is a JSON string that contains confirmation message and updated
     // currentUser object
     // Must update currentUser as the new local truth
+
+    const testVar = await response.json();
+    console.log(testVar.user);
+
+    // FIXME:  currentUser is not defined after this runs.
+    currentUser = new User(testVar.user, currentUser.token);
+    // currentUser = await response.json().user;
   }
 
 
