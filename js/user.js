@@ -111,6 +111,9 @@ function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
 
   $allStoriesList.show();
-
   updateNavOnLogin();
+  addFavoriteStars();    // TODO: Define this function!
+  $loginForm.hide();
+  $signupForm.hide();
+
 }

@@ -51,6 +51,16 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
+/** Prepends story links with filled or unfilled stars for logged-in users
+ *  depending on whether the stories are favorite or not favorite.
+ *  No input or output.
+*/
+
+function addFavoriteStars() {
+  $allStoriesList.children().prepend('<i class="bi bi-star"></i>');
+  // TODO: implement the star-fill version for favorites.
+  $allStoriesList.children().prepend('<i class="bi bi-star-fill"></i>');
+}
 
 /** This function gets the details of a single new story submitted by the
  *  user in the story-submission form, processes the story by sending a POST
