@@ -24,8 +24,9 @@ class Story {
   /** Parses hostname out of URL and returns it. */
 
   getHostName() {
-    // FIXME: complete this function!
-    return "hostname.com";
+    const storyURL = new URL(this.url);
+    const storyURLHostName = storyURL.hostname;
+    return storyURLHostName;
   }
 }
 
