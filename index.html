@@ -46,15 +46,18 @@
 <form id="story-submission-form" class="submission-form hidden">
   <div class="story-author-input">
     <label for="story-author-name">author</label>
-    <input id="story-author-name" autocapitalize="words" placeholder="author name">
+    <input id="story-author-name" autocapitalize="words"
+           placeholder="author name" required>
   </div>
   <div class="story-title-input">
     <label for="story-title">title</label>
-    <input id="story-title" autocapitalize="words" placeholder="story title">
+    <input id="story-title" autocapitalize="words"
+           placeholder="story title" required>
   </div>
   <div class="story-url-input">
     <label for="story-url-name">url</label>
-    <input id="story-url-name" autocapitalize="words" placeholder="story url">
+    <input id="story-url-name" type="url" autocapitalize="words"
+           placeholder="story url" required>
   </div>
   <button type="submit">submit</button>
   <hr>

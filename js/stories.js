@@ -57,7 +57,6 @@ function putStoriesOnPage() {
  *  request, and then adds the story to the DOM at the top of the story list.
  */
 async function putUserSubmittedStoryOnPage() {
-  //TODO: Clear and hide submit form?
   const author = $('#story-author-name').val();
   const title = $('#story-title').val();
   const url = $('#story-url-name').val();
