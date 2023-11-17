@@ -218,7 +218,7 @@ class User {
   /** addFavoriteStory is a method function on the User class
    * Input: A previously unfavorited instance of a Story class "story"
    * Actions: This posts the new favorite "story" to the API and updates the
-   * current user favorite story list.
+   * current user's favorite story list.
    * Outputs: None
   */
 
@@ -235,19 +235,36 @@ class User {
     );
 
     const responseObj = await response.json();
-    const updatedFavorites = await responseObj.user.favorites
+    const increasedFavorites = await responseObj.user.favorites
 
-    currentUser.favorites = updatedFavorites;
+    currentUser.favorites = increasedFavorites;
   }
 
+  // TODO: Could make a helper function to call either unFavoriteStory or
+  // favoriteStory with the appropriate API method POST or DELETE.
 
   /** unFavoriteStory is a method function on the User class
-   * Input: Instance of a Story class
-   * Actions:
-   * Outputs:
+   * Input: A previously favorited instance of a Story class "story"
+   * Actions: This deletes the targeted favorite "story" from the API and
+   * updates the current user's favorite story list.
+   * Outputs: None
    */
 
-  unFavoriteStory(story) {
+  async unFavoriteStory(story) {
+    const postRequestBody = {
+      "token": currentUser.loginToken,
+    };
+    const response = await fetch(`${BASE_URL}/users/` +
+        `${currentUser.username}/favorites/${story.storyId}`,
+        {
+          method: "DELETE",
+          body: JSON.stringify(postRequestBody)
+        }
+    );
 
+    const responseObj = await response.json();
+    const reducedFavorites = await responseObj.user.favorites
+
+    currentUser.favorites = reducedFavorites;
   }
 }
