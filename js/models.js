@@ -71,13 +71,13 @@ class StoryList {
    * - user - the current instance of User who will post the story
    * - obj of {title, author, url}
    *
-   * Returns the new Story instance
+   * Returns the new Story instance    // TODO: Maybe look at docstring v input
    */
 
   async addStory(currentUser, newStoryData) {
     const postRequestBody = {
       "token": currentUser.loginToken,
-      "story": newStoryData
+      "story": newStoryData    // TODO: good practice to destructure before POST
     };
     const response = await fetch(`${BASE_URL}/stories`,
       {
@@ -85,6 +85,8 @@ class StoryList {
         body: JSON.stringify(postRequestBody)
       }
     );
+    // TODO: Handle the prepending on user submission around here.
+    // (and remove the other version of that prepend todo.)
     const newStoryInstance = await response.json();
     return new Story(newStoryInstance.story);
   }

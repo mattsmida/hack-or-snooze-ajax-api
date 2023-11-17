@@ -37,6 +37,8 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
+// TODO: Could reorganize this to match the site layout.
+
 /** Show story submission form on click on "login" */
 
 function navStorySubmitClick(evt) {
