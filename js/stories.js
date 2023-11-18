@@ -59,29 +59,42 @@ function putStoriesOnPage() {
 function addFavoriteStars() {
   const favoriteIds = [];
   const favoriteStories = currentUser.favorites;
-  console.log("addFavoriteStars", favoriteIds, currentUser, favoriteStories, favoriteStories[0], favoriteStories[0].storyID)
-  //Loop through favorite stories on current user
   for (let favoriteStory of favoriteStories) {
-    //Populate array "favoriateIDs" with all IDs
     favoriteIds.push(favoriteStory.storyId);
   }
   const stories = storyList.stories;
-  //Loop through the storyList looking at each ID
+  const filledStarHTML = '<i class="bi fav-star bi-star-fill"></i>';
+  const hollowStarHTML = '<i class="bi fav-star bi-star"></i>';
   for (let story of stories) {
-    if(favoriteIds.includes(story.storyID)) {
-      $(`#${story.storyID}`).prepend('<i class="bi bi-star-fill"></i>');
+    console.log(story.storyId);
+    if(favoriteIds.includes(story.storyId)) {
+      $(`#${story.storyId}`).prepend(filledStarHTML);
     } else {
-      $(`#${story.storyID}`).prepend('<i class="bi bi-star"></i>');
+      $(`#${story.storyId}`).prepend(hollowStarHTML);
     }
   }
-  console.log("addFavoriteStars", favoriteIds, stories)
-  //See if ID is included in "favoriteIDs"
-  //If not, populate with hollow star
-  //Else populate with filled star
-  // $allStoriesList.children().eq(_).prepend('<i class="bi bi-star"></i>');
-  // TODO: implement the star-fill version for favorites.
-  // $allStoriesList.children().prepend('<i class="bi bi-star-fill"></i>');
 }
+
+$allStoriesList.on('click', '.fav-star', function(evt) {
+  console.log($(evt.target).parent().attr('id'));
+  const targetStoryId = $(evt.target).parent().attr('id')
+
+  // If starState is true, then we will un-favorite the story.
+  // Else, we will favorite it.
+  const starState = evt.target.classList.contains('bi-star-fill');
+
+  // for (let story of storyList.stories) {
+  //   // console.log(story);
+
+  //   if (story.storyId === targetStoryId) {
+  //     // addFavoriteStory(story);
+
+  //   }
+  // }
+  // addFavoriteStory(evt.target....);
+})
+
+
 
 /** This function gets the details of a single new story submitted by the
  *  user in the story-submission form, processes the story by sending a POST
