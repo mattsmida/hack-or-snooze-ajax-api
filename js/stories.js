@@ -20,7 +20,7 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  // console.debug("generateStoryMarkup", story);
+  console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
   return $(`
@@ -55,7 +55,7 @@ function putStoriesOnPage() {
  *  depending on whether the stories are favorite or not favorite.
  *  No input or output.
 */
-
+//TODO: Could use map to simplify favoriteIds
 function addFavoriteStars() {
   const favoriteIds = [];
   const favoriteStories = currentUser.favorites;
@@ -75,7 +75,17 @@ function addFavoriteStars() {
   }
 }
 
-$allStoriesList.on('click', '.fav-star', function(evt) {
+/** Event listener on favorite stars, invokes API requests and updates
+ * UI for stories that are changing from favorited to unfavorited stories
+ * and vic versa.
+ */
+
+//TODO: Break out functions and seperate concerns, be consistant with JQuery
+// vs Vanilla JS use something more flexible to find specific parent for
+// targetStoryID, like closest. Look at jQuery toggle method to add or remove
+// star fill
+
+$allStoriesList.on('click', '.fav-star', async function(evt) {
   console.log($(evt.target).parent().attr('id'));
   const targetStoryId = $(evt.target).parent().attr('id')
 
@@ -83,15 +93,21 @@ $allStoriesList.on('click', '.fav-star', function(evt) {
   // Else, we will favorite it.
   const starState = evt.target.classList.contains('bi-star-fill');
 
-  // for (let story of storyList.stories) {
-  //   // console.log(story);
+  for (let story of storyList.stories) {
+    // console.log(story);
 
-  //   if (story.storyId === targetStoryId) {
-  //     // addFavoriteStory(story);
-
-  //   }
-  // }
-  // addFavoriteStory(evt.target....);
+    if (story.storyId === targetStoryId) {
+      if (starState) {
+        await currentUser.unFavoriteStory(story);
+        evt.target.classList.remove("bi-star-fill");
+        evt.target.classList.add("bi-star");
+      } else {
+        await currentUser.addFavoriteStory(story);
+        evt.target.classList.remove("bi-star");
+        evt.target.classList.add("bi-star-fill");
+      }
+    }
+  }
 })
 
 

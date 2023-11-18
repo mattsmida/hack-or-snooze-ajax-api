@@ -106,13 +106,16 @@ function saveUserCredentialsInLocalStorage() {
  * - update nav bar options for logged-in user
  * - generate the user profile part of the page
  */
-
+/**  TODO: Need to figure out where this makes sense to invoke addFavoriteStars,
+ * currently this function works ONLY if the user logins in OR creates a
+ * new user account. Any time the user is signed in but clicks on the home link,
+ * the stars disappear. Maybe invoke this function on that instance?
+*/
 function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
-
   $allStoriesList.show();
   updateNavOnLogin();
-  addFavoriteStars();    // TODO: Define this function!
+  addFavoriteStars();
   $loginForm.hide();
   $signupForm.hide();
 

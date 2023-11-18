@@ -221,7 +221,7 @@ class User {
    * current user's favorite story list.
    * Outputs: None
   */
-
+  //TODO: Improve naming for responseObj and increasedFavorites
   async addFavoriteStory(story) {
     const postRequestBody = {
       "token": currentUser.loginToken,
@@ -235,7 +235,7 @@ class User {
     );
 
     const responseObj = await response.json();
-    const increasedFavorites = await responseObj.user.favorites
+    const increasedFavorites = responseObj.user.favorites
 
     currentUser.favorites = increasedFavorites;
   }
@@ -249,7 +249,7 @@ class User {
    * updates the current user's favorite story list.
    * Outputs: None
    */
-
+  //TODO: Improve naming for responseObj and increasedFavorites
   async unFavoriteStory(story) {
     const postRequestBody = {
       "token": currentUser.loginToken,

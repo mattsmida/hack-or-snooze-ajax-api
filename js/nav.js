@@ -48,3 +48,24 @@ function navStorySubmitClick(evt) {
 }
 
 $navStorySubmit.on("click", navStorySubmitClick);
+
+
+
+/** Show favorites stories form on click on "favorites" and populates
+ * form with favorite stories
+ */
+
+function displayFavoriteStories(evt) {
+  console.log("displayFavoriteStories", evt);
+  evt.preventDefault();
+  const favoriteStories = currentUser.favorites;
+
+  for(let favoriteStory of favoriteStories) {
+    const $favoriteStoryMarkup = generateStoryMarkup(favoriteStory);
+    $allFavoriteStoriesList.append($favoriteStoryMarkup);
+  }
+  $allStoriesList.hide();
+  $allFavoriteStoriesList.show();
+}
+
+$navStoryFavorites.on("click", displayFavoriteStories);
